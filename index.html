@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Unit Converter - Professional & Accurate</title>
+    <meta name="description" content="Professional online unit converter with 250+ units across 12 categories. Fast, accurate, and mobile-friendly for instant daily conversions.">
+    <meta name="keywords" content="unit converter, online converter, length converter, weight converter, temperature converter, volume converter">
+    <meta name="author" content="Online Unit Converter Pro">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@0.265.0" defer></script>
+    <style>
+        :root {
+            --background: 250 50% 98%;
+            --foreground: 222 84% 5%;
+            --card: 0 0% 100%;
+            --card-foreground: 222 84% 5%;
+            --primary: 213 94% 68%;
+            --primary-dark: 213 94% 58%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 220 14% 96%;
+            --secondary-foreground: 220 9% 46%;
+            --muted: 220 14% 96%;
+            --muted-foreground: 220 9% 46%;
+            --accent: 271 91% 65%;
+            --accent-light: 271 91% 75%;
+            --accent-foreground: 0 0% 100%;
+            --destructive: 0 84% 60%;
+            --destructive-foreground: 0 0% 100%;
+            --success: 142 71% 45%;
+            --success-foreground: 0 0% 100%;
+            --warning: 38 92% 50%;
+            --warning-foreground: 0 0% 100%;
+            --border: 220 13% 91%;
+            --input: 220 13% 97%;
+            --input-focus: 213 94% 68%;
+            --ring: 213 94% 68%;
+            --radius: 1rem;
+            --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+            --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+            --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
+            --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 10px 10px -5px hsl(0 0% 0% / 0.04);
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 210 40% 98%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 212.7 26.8% 83.9%;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-color: hsl(var(--border));
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.025em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+            background-color: hsla(var(--background) / 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid hsl(var(--border));
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: hsl(var(--muted-foreground));
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: hsl(var(--primary));
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: hsl(var(--foreground));
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+
+        /* Converter Section */
+        .converter-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-description {
+            color: hsl(var(--muted-foreground));
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .converter-container {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .converter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .converter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .category-select {
+            padding: 0.75rem;
+            border-radius: calc(var(--radius) - 0.25rem);
+            border: 1px solid hsl(var(--border));
+            background-color: hsl(var(--background));
+            font-family: inherit;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+
+        .converter-form {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            padding: 0.75rem;
+            border: 1px solid hsl(var(--border));
+            border-radius: calc(var(--radius) - 0.25rem);
+            font-size: 1rem;
+            font-family: inherit;
+            background-color: hsl(var(--background));
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 3px hsla(var(--primary) / 0.2);
+        }
+
+        .swap-btn {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+            border: none;
+            border-radius: calc(var(--radius) - 0.25rem);
+            padding: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 42px;
+        }
+
+        .swap-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: hsla(var(--primary) / 0.05);
+            border-radius: calc(var(--radius) - 0.25rem);
+            border-left: 4px solid hsl(var(--primary));
+        }
+
+        .conversion-text {
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+            border: none;
+            border-radius: calc(var(--radius) - 0.5rem);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* How to Use Section */
+        .how-to-use-section {
+            padding: 4rem 0;
+            background-color: hsla(var(--secondary) / 0.3);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-card {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            position: relative;
+            margin: 0 auto 1.5rem;
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1rem;
+        }
+
+        .step-details {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+
+        .mobile-tips {
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.05), hsl(var(--accent) / 0.05));
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-tips-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-tips-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip {
+            background-color: hsl(var(--card));
+            border-radius: calc(var(--radius) - 0.25rem);
+            padding: 1.25rem;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-description {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+
+        .cta-card {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid hsl(var(--border) / 0.5);
+        }
+
+        .cta-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cta-description {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+            border-radius: calc(var(--radius) - 0.25rem);
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Blog Section */
+        .blog-section {
+            padding: 4rem 0;
+            background-color: hsla(var(--secondary) / 0.3);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-card {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 150px;
+            background-color: hsl(var(--muted));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: hsl(var(--muted-foreground));
+            font-weight: 600;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-category {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: hsl(var(--primary));
+        }
+
+        .blog-read-time {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-excerpt {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: hsl(var(--primary));
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .blog-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: calc(var(--radius) - 0.25rem);
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .primary-button {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+        }
+
+        .secondary-button {
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border: 1px solid hsl(var(--border));
+        }
+
+        .blog-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Formulas Section */
+        .formulas-section {
+            padding: 4rem 0;
+        }
+
+        .formulas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .formula-card {
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: hsl(var(--primary));
+        }
+
+        .formula-content {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: hsl(var(--secondary));
+            padding: 1rem;
+            border-radius: calc(var(--radius) - 0.5rem);
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .formula-description {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: hsl(var(--foreground));
+            color: hsl(var(--background));
+            padding-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            color: white;
+        }
+
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-logo-subtitle {
+            font-size: 0.75rem;
+            color: hsla(var(--background) / 0.8);
+        }
+
+        .footer-description {
+            color: hsla(var(--background) / 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: hsla(var(--background) / 0.6);
+            transition: color 0.2s;
+        }
+
+        .social-link:hover {
+            color: hsl(var(--background));
+        }
+
+        .footer-column-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: hsl(var(--background));
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: hsla(var(--background) / 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link a:hover {
+            color: hsl(var(--background));
+        }
+
+        .footer-link-icon {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .footer-link a:hover .footer-link-icon {
+            opacity: 1;
+        }
+
+        .footer-categories {
+            list-style: none;
+        }
+
+        .footer-category {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: hsla(var(--background) / 0.8);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid hsla(var(--background) / 0.2);
+            padding: 1.5rem 0;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .copyright {
+            color: hsla(var(--background) / 0.6);
+            font-size: 0.875rem;
+        }
+
+        .footer-meta {
+            color: hsla(var(--background) / 0.5);
+            font-size: 0.75rem;
+        }
+
+        .footer-links-bottom {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link-bottom {
+            color: hsla(var(--background) / 0.6);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-link-bottom:hover {
+            color: hsl(var(--background));
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .converter-form {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i data-lucide="calculator"></i>
+                    </div>
+                    <div class="logo-text">
+                        <div class="logo-title">Online Unit Converter</div>
+                        <div class="logo-subtitle">Professional & Accurate</div>
+                    </div>
+                </div>
+                <nav>
+                    <a href="#converter">Converter</a>
+                    <a href="#how-to-use">How to Use</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#formulas">Formulas</a>
+                </nav>
+                <button class="mobile-menu-btn">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Online Unit Converter</h1>
+            <p class="hero-description">Professional tool for instant accurate conversions across 250+ units in 12 categories. Convert length, weight, temperature, volume, area, time, energy, power, pressure, speed, and digital storage with precision.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Results</h3>
+                    <p class="feature-description">Get conversions in real-time as you type</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <h3 class="feature-title">100% Accurate</h3>
+                    <p class="feature-description">Precision calculations for professionals</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile Friendly</h3>
+                    <p class="feature-description">Works perfectly on all devices</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🆓</div>
+                    <h3 class="feature-title">Always Free</h3>
+                    <p class="feature-description">No hidden costs or subscriptions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Converter Section -->
+    <section id="converter" class="converter-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Unit Converter</h2>
+                <p class="section-description">Convert between various units in 12 different categories with professional accuracy</p>
+            </div>
+            
+            <div class="converter-container">
+                <div class="converter-header">
+                    <h3 class="converter-title">Convert Units</h3>
+                    <select class="category-select" id="category-select">
+                        <option value="length">Length & Distance</option>
+                        <option value="weight">Weight & Mass</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="volume">Volume & Capacity</option>
+                        <option value="area">Area & Surface</option>
+                        <option value="time">Time & Duration</option>
+                        <option value="energy">Energy & Work</option>
+                        <option value="power">Power & Force</option>
+                        <option value="pressure">Pressure & Stress</option>
+                        <option value="speed">Speed & Velocity</option>
+                        <option value="digital">Digital Storage</option>
+                    </select>
+                </div>
+                
+                <div class="converter-form">
+                    <div class="form-group">
+                        <label for="value" class="form-label">Value</label>
+                        <input type="number" id="value" class="form-control" placeholder="Enter value" step="any">
+                    </div>
+                    
+                    <button type="button" id="swap-btn" class="swap-btn" title="Swap units">
+                        <i data-lucide="arrow-right-left"></i>
+                    </button>
+                    
+                    <div class="form-group">
+                        <label for="result" class="form-label">Result</label>
+                        <input type="text" id="result" class="form-control" placeholder="Result" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="from-unit" class="form-label">From</label>
+                        <select id="from-unit" class="form-control">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+                    
+                    <div></div> <!-- Spacer -->
+                    
+                    <div class="form-group">
+                        <label for="to-unit" class="form-label">To</label>
+                        <select id="to-unit" class="form-control">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="result" id="result-container" style="display: none;">
+                    <p class="conversion-text" id="conversion-text"></p>
+                    <button id="copy-btn" class="copy-btn">Copy Result</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section id="how-to-use" class="how-to-use-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How to Use Our Professional Converter</h2>
+                <p class="section-description">Master professional unit conversions in 4 simple steps. Designed for speed, accuracy, and daily professional use.</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i data-lucide="calculator"></i>
+                        <div class="step-number">1</div>
+                    </div>
+                    <h3 class="step-title">Select Category</h3>
+                    <p class="step-description">Choose from 12 professional conversion categories</p>
+                    <p class="step-details">Pick from Length, Weight, Temperature, Volume, Area, Time, Energy, Power, Pressure, Speed, Digital Storage, and more.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i data-lucide="mouse-pointer"></i>
+                        <div class="step-number">2</div>
+                    </div>
+                    <h3 class="step-title">Enter Your Value</h3>
+                    <p class="step-description">Type any number with full precision support</p>
+                    <p class="step-details">Supports decimals, scientific notation, and values from microscopic to astronomical scales.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i data-lucide="arrow-right"></i>
+                        <div class="step-number">3</div>
+                    </div>
+                    <h3 class="step-title">Choose Units</h3>
+                    <p class="step-description">Select source and target units from dropdowns</p>
+                    <p class="step-details">Instantly swap units with our one-click swap feature for bidirectional conversions.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i data-lucide="copy"></i>
+                        <div class="step-number">4</div>
+                    </div>
+                    <h3 class="step-title">Get Instant Results</h3>
+                    <p class="step-description">See accurate conversions in real-time</p>
+                    <p class="step-details">Results update as you type with professional-grade accuracy. Click to copy results instantly.</p>
+                </div>
+            </div>
+            
+            <div class="mobile-tips">
+                <div class="mobile-tips-header">
+                    <i data-lucide="smartphone"></i>
+                    <h3 class="mobile-tips-title">Mobile & Daily Use Tips</h3>
+                </div>
+                
+                <div class="tips-grid">
+                    <div class="tip">
+                        <h4 class="tip-title">📱 Mobile Optimized</h4>
+                        <p class="tip-description">Large touch targets, fast loading, and offline capability for conversions anywhere.</p>
+                    </div>
+                    
+                    <div class="tip">
+                        <h4 class="tip-title">⚡ Instant Results</h4>
+                        <p class="tip-description">No waiting - conversions happen as you type with professional accuracy.</p>
+                    </div>
+                    
+                    <div class="tip">
+                        <h4 class="tip-title">📋 Quick Copy</h4>
+                        <p class="tip-description">Tap any result to copy to clipboard for use in other apps and documents.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-card">
+                <h3 class="cta-title">Ready for Professional Conversions?</h3>
+                <p class="cta-description">Join thousands of professionals who trust our converter for accurate, instant conversions across all measurement categories.</p>
+                <a href="#converter" class="cta-button">
+                    Start Converting Now <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Conversion Guides & Resources</h2>
+                <p class="section-description">Comprehensive guides to master unit conversions across all categories. From basic everyday conversions to advanced scientific applications.</p>
+            </div>
+            
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">LENGTH</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">LENGTH & DISTANCE</span>
+                            <span class="blog-read-time">5 min read</span>
+                        </div>
+                        <h3 class="blog-title">Complete Guide to Length Conversions</h3>
+                        <p class="blog-excerpt">Master all length units from millimeters to astronomical units. Learn the most common conversions used in engineering, construction, and science.</p>
+                        <a href="#" class="read-more">
+                            Read Full Guide <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">WEIGHT</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">WEIGHT & MASS</span>
+                            <span class="blog-read-time">4 min read</span>
+                        </div>
+                        <h3 class="blog-title">Weight vs Mass: Understanding the Difference</h3>
+                        <p class="blog-excerpt">Explore the fundamental difference between weight and mass, and learn how to convert between grams, pounds, ounces, and more exotic units.</p>
+                        <a href="#" class="read-more">
+                            Read Full Guide <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">TEMP</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">TEMPERATURE</span>
+                            <span class="blog-read-time">6 min read</span>
+                        </div>
+                        <h3 class="blog-title">Temperature Scales Around the World</h3>
+                        <p class="blog-excerpt">From Celsius to Fahrenheit, Kelvin to Rankine - understand all temperature scales and their practical applications in science and daily life.</p>
+                        <a href="#" class="read-more">
+                            Read Full Guide <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">PRESSURE</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">PRESSURE & STRESS</span>
+                            <span class="blog-read-time">5 min read</span>
+                        </div>
+                        <h3 class="blog-title">Pressure Measurements in Science and Industry</h3>
+                        <p class="blog-excerpt">From atmospheric pressure to industrial applications - understand pascals, PSI, bars, and specialized pressure units across industries.</p>
+                        <a href="#" class="read-more">
+                            Read Full Guide <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-cta">
+                <a href="#converter" class="blog-button primary-button">
+                    <i data-lucide="calculator"></i> Start Converting Now
+                </a>
+                <a href="#formulas" class="blog-button secondary-button">
+                    <i data-lucide="book-open"></i> View All Formulas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulas Section -->
+    <section id="formulas" class="formulas-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Conversion Formulas</h2>
+                <p class="section-description">Learn the mathematical formulas behind our unit conversions for each category</p>
+            </div>
+            
+            <div class="formulas-grid">
+                <div class="formula-card">
+                    <h3 class="formula-title">Length Conversions</h3>
+                    <div class="formula-content">1 meter = 100 centimeters = 1000 millimeters</div>
+                    <div class="formula-content">1 inch = 2.54 centimeters</div>
+                    <div class="formula-content">1 foot = 0.3048 meters</div>
+                    <p class="formula-description">All length units are based on the meter as the base unit.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h3 class="formula-title">Weight Conversions</h3>
+                    <div class="formula-content">1 kilogram = 1000 grams</div>
+                    <div class="formula-content">1 pound = 0.453592 kilograms</div>
+                    <div class="formula-content">1 ounce = 28.3495 grams</div>
+                    <p class="formula-description">Mass units are based on the kilogram as the base unit.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h3 class="formula-title">Temperature Conversions</h3>
+                    <div class="formula-content">°F = (°C × 9/5) + 32</div>
+                    <div class="formula-content">°C = (°F - 32) × 5/9</div>
+                    <div class="formula-content">K = °C + 273.15</div>
+                    <p class="formula-description">Temperature conversions use different formulas than other units.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h3 class="formula-title">Volume Conversions</h3>
+                    <div class="formula-content">1 liter = 1000 milliliters</div>
+                    <div class="formula-content">1 gallon = 3.78541 liters</div>
+                    <div class="formula-content">1 cubic meter = 1000 liters</div>
+                    <p class="formula-description">Volume units are based on the liter as the base unit.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h3 class="formula-title">Digital Storage</h3>
+                    <div class="formula-content">1 byte = 8 bits</div>
+                    <div class="formula-content">1 kilobyte = 1024 bytes</div>
+                    <div class="formula-content">1 megabyte = 1024 kilobytes</div>
+                    <p class="formula-description">Digital units use binary (base-2) prefixes.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h3 class="formula-title">Energy Conversions</h3>
+                    <div class="formula-content">1 joule = 0.239006 calories</div>
+                    <div class="formula-content">1 calorie = 4.184 joules</div>
+                    <div class="formula-content">1 kWh = 3.6 × 10⁶ joules</div>
+                    <p class="formula-description">Energy can be measured in multiple equivalent units.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i data-lucide="calculator"></i>
+                        </div>
+                        <div class="footer-logo-text">
+                            <div class="footer-logo-title">Online Unit Converter</div>
+                            <div class="footer-logo-subtitle">Professional & Accurate</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">The most comprehensive, accurate, and professional unit converter. Trusted by engineers, students, and professionals worldwide for instant daily conversions.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i data-lucide="mail"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-column-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Length Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Weight Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Temperature Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Volume Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Area Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#converter">
+                                Time Converter <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-column-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#how-to-use">
+                                How to Use <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#formulas">
+                                Conversion Formulas <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#blog">
+                                Unit Categories <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#blog">
+                                Tips & Tricks <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#">
+                                API Documentation <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#">
+                                Mobile App <i data-lucide="external-link" class="footer-link-icon" width="12" height="12"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-column-title">Categories</h4>
+                    <ul class="footer-categories">
+                        <li class="footer-category">• Length & Distance</li>
+                        <li class="footer-category">• Weight & Mass</li>
+                        <li class="footer-category">• Temperature</li>
+                        <li class="footer-category">• Volume & Capacity</li>
+                        <li class="footer-category">• Area & Surface</li>
+                        <li class="footer-category">• Time & Duration</li>
+                        <li class="footer-category">• Energy & Power</li>
+                        <li class="footer-category">• Pressure & Force</li>
+                        <li class="footer-category">• Speed & Velocity</li>
+                        <li class="footer-category">• Digital Storage</li>
+                        <li class="footer-category">+ 2 more categories</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">© 2024 Online Unit Converter. Made by Aayan Sharma. All rights reserved.</p>
+                    <p class="footer-meta">250+ units across 12 categories • Mobile optimized • Always free</p>
+                    <div class="footer-links-bottom">
+                        <a href="#" class="footer-link-bottom">Privacy Policy</a>
+                        <a href="#" class="footer-link-bottom">Terms of Service</a>
+                        <a href="#" class="footer-link-bottom">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Unit conversion data
+        const units = {
+            length: [
+                { name: 'Millimeter', symbol: 'mm', factor: 0.001 },
+                { name: 'Centimeter', symbol: 'cm', factor: 0.01 },
+                { name: 'Meter', symbol: 'm', factor: 1 },
+                { name: 'Kilometer', symbol: 'km', factor: 1000 },
+                { name: 'Inch', symbol: 'in', factor: 0.0254 },
+                { name: 'Foot', symbol: 'ft', factor: 0.3048 },
+                { name: 'Yard', symbol: 'yd', factor: 0.9144 },
+                { name: 'Mile', symbol: 'mi', factor: 1609.344 },
+                { name: 'Nautical Mile', symbol: 'nmi', factor: 1852 }
+            ],
+            weight: [
+                { name: 'Milligram', symbol: 'mg', factor: 0.000001 },
+                { name: 'Gram', symbol: 'g', factor: 0.001 },
+                { name: 'Kilogram', symbol: 'kg', factor: 1 },
+                { name: 'Metric Ton', symbol: 't', factor: 1000 },
+                { name: 'Ounce', symbol: 'oz', factor: 0.0283495 },
+                { name: 'Pound', symbol: 'lb', factor: 0.453592 },
+                { name: 'Stone', symbol: 'st', factor: 6.35029 },
+                { name: 'US Ton', symbol: 'ton (US)', factor: 907.185 },
+                { name: 'UK Ton', symbol: 'ton (UK)', factor: 1016.05 }
+            ],
+            temperature: [
+                { name: 'Celsius', symbol: '°C', factor: 1, offset: 0 },
+                { name: 'Fahrenheit', symbol: '°F', factor: 5/9, offset: -32 },
+                { name: 'Kelvin', symbol: 'K', factor: 1, offset: -273.15 }
+            ],
+            volume: [
+                { name: 'Milliliter', symbol: 'mL', factor: 0.001 },
+                { name: 'Liter', symbol: 'L', factor: 1 },
+                { name: 'Cubic Meter', symbol: 'm³', factor: 1000 },
+                { name: 'Teaspoon (US)', symbol: 'tsp', factor: 0.00492892 },
+                { name: 'Tablespoon (US)', symbol: 'tbsp', factor: 0.0147868 },
+                { name: 'Fluid Ounce (US)', symbol: 'fl oz', factor: 0.0295735 },
+                { name: 'Cup (US)', symbol: 'cup', factor: 0.236588 },
+                { name: 'Pint (US)', symbol: 'pt', factor: 0.473176 },
+                { name: 'Quart (US)', symbol: 'qt', factor: 0.946353 },
+                { name: 'Gallon (US)', symbol: 'gal', factor: 3.78541 }
+            ],
+            area: [
+                { name: 'Square Millimeter', symbol: 'mm²', factor: 0.000001 },
+                { name: 'Square Centimeter', symbol: 'cm²', factor: 0.0001 },
+                { name: 'Square Meter', symbol: 'm²', factor: 1 },
+                { name: 'Hectare', symbol: 'ha', factor: 10000 },
+                { name: 'Square Kilometer', symbol: 'km²', factor: 1000000 },
+                { name: 'Square Inch', symbol: 'in²', factor: 0.00064516 },
+                { name: 'Square Foot', symbol: 'ft²', factor: 0.092903 },
+                { name: 'Square Yard', symbol: 'yd²', factor: 0.836127 },
+                { name: 'Acre', symbol: 'ac', factor: 4046.86 },
+                { name: 'Square Mile', symbol: 'mi²', factor: 2589988.11 }
+            ],
+            time: [
+                { name: 'Nanosecond', symbol: 'ns', factor: 0.000000001 },
+                { name: 'Microsecond', symbol: 'μs', factor: 0.000001 },
+                { name: 'Millisecond', symbol: 'ms', factor: 0.001 },
+                { name: 'Second', symbol: 's', factor: 1 },
+                { name: 'Minute', symbol: 'min', factor: 60 },
+                { name: 'Hour', symbol: 'hr', factor: 3600 },
+                { name: 'Day', symbol: 'd', factor: 86400 },
+                { name: 'Week', symbol: 'wk', factor: 604800 },
+                { name: 'Month', symbol: 'mo', factor: 2629746 },
+                { name: 'Year', symbol: 'yr', factor: 31556952 }
+            ],
+            energy: [
+                { name: 'Joule', symbol: 'J', factor: 1 },
+                { name: 'Kilojoule', symbol: 'kJ', factor: 1000 },
+                { name: 'Calorie', symbol: 'cal', factor: 4.184 },
+                { name: 'Kilocalorie', symbol: 'kcal', factor: 4184 },
+                { name: 'Watt-hour', symbol: 'Wh', factor: 3600 },
+                { name: 'Kilowatt-hour', symbol: 'kWh', factor: 3600000 },
+                { name: 'Electronvolt', symbol: 'eV', factor: 1.60218e-19 },
+                { name: 'British Thermal Unit', symbol: 'BTU', factor: 1055.06 },
+                { name: 'Foot-pound', symbol: 'ft-lb', factor: 1.35582 }
+            ],
+            power: [
+                { name: 'Watt', symbol: 'W', factor: 1 },
+                { name: 'Kilowatt', symbol: 'kW', factor: 1000 },
+                { name: 'Megawatt', symbol: 'MW', factor: 1000000 },
+                { name: 'Horsepower (mech)', symbol: 'hp', factor: 745.7 },
+                { name: 'Horsepower (metric)', symbol: 'PS', factor: 735.499 },
+                { name: 'Foot-pound per second', symbol: 'ft-lb/s', factor: 1.35582 },
+                { name: 'BTU per hour', symbol: 'BTU/h', factor: 0.293071 },
+                { name: 'Ton of refrigeration', symbol: 'RT', factor: 3516.85 }
+            ],
+            pressure: [
+                { name: 'Pascal', symbol: 'Pa', factor: 1 },
+                { name: 'Kilopascal', symbol: 'kPa', factor: 1000 },
+                { name: 'Megapascal', symbol: 'MPa', factor: 1000000 },
+                { name: 'Bar', symbol: 'bar', factor: 100000 },
+                { name: 'Pound per square inch', symbol: 'psi', factor: 6894.76 },
+                { name: 'Atmosphere', symbol: 'atm', factor: 101325 },
+                { name: 'Torr', symbol: 'Torr', factor: 133.322 },
+                { name: 'Millimeter of mercury', symbol: 'mmHg', factor: 133.322 }
+            ],
+            speed: [
+                { name: 'Meter per second', symbol: 'm/s', factor: 1 },
+                { name: 'Kilometer per hour', symbol: 'km/h', factor: 0.277778 },
+                { name: 'Mile per hour', symbol: 'mph', factor: 0.44704 },
+                { name: 'Knot', symbol: 'kn', factor: 0.514444 },
+                { name: 'Foot per second', symbol: 'ft/s', factor: 0.3048 }
+            ],
+            digital: [
+                { name: 'Bit', symbol: 'b', factor: 0.125 },
+                { name: 'Byte', symbol: 'B', factor: 1 },
+                { name: 'Kilobyte', symbol: 'KB', factor: 1024 },
+                { name: 'Megabyte', symbol: 'MB', factor: 1048576 },
+                { name: 'Gigabyte', symbol: 'GB', factor: 1073741824 },
+                { name: 'Terabyte', symbol: 'TB', factor: 1099511627776 },
+                { name: 'Petabyte', symbol: 'PB', factor: 1125899906842624 },
+                { name: 'Kibibyte', symbol: 'KiB', factor: 1024 },
+                { name: 'Mebibyte', symbol: 'MiB', factor: 1048576 },
+                { name: 'Gibibyte', symbol: 'GiB', factor: 1073741824 },
+                { name: 'Tebibyte', symbol: 'TiB', factor: 1099511627776 },
+                { name: 'Pebibyte', symbol: 'PiB', factor: 1125899906842624 }
+            ]
+        };
+
+        // DOM elements
+        const categorySelect = document.getElementById('category-select');
+        const fromUnitSelect = document.getElementById('from-unit');
+        const toUnitSelect = document.getElementById('to-unit');
+        const valueInput = document.getElementById('value');
+        const resultInput = document.getElementById('result');
+        const resultContainer = document.getElementById('result-container');
+        const conversionText = document.getElementById('conversion-text');
+        const copyBtn = document.getElementById('copy-btn');
+        const swapBtn = document.getElementById('swap-btn');
+
+        // Initialize the converter
+        function initConverter() {
+            // Populate the first category
+            updateUnitSelects(categorySelect.value);
+            
+            // Set default values for temperature
+            if (categorySelect.value === 'temperature') {
+                fromUnitSelect.value = '°C';
+                toUnitSelect.value = '°F';
+            }
+            
+            // Add event listeners
+            categorySelect.addEventListener('change', function() {
+                updateUnitSelects(this.value);
+                convert();
+            });
+            
+            fromUnitSelect.addEventListener('change', convert);
+            toUnitSelect.addEventListener('change', convert);
+            valueInput.addEventListener('input', convert);
+            swapBtn.addEventListener('click', swapUnits);
+            copyBtn.addEventListener('click', copyResult);
+            
+            // Initial conversion
+            convert();
+        }
+
+        // Update unit selects based on category
+        function updateUnitSelects(category) {
+            // Clear current options
+            fromUnitSelect.innerHTML = '';
+            toUnitSelect.innerHTML = '';
+            
+            // Add new options
+            units[category].forEach(unit => {
+                const option1 = document.createElement('option');
+                option1.value = unit.symbol;
+                option1.textContent = `${unit.symbol} - ${unit.name}`;
+                
+                const option2 = document.createElement('option');
+                option2.value = unit.symbol;
+                option2.textContent = `${unit.symbol} - ${unit.name}`;
+                
+                fromUnitSelect.appendChild(option1);
+                toUnitSelect.appendChild(option2);
+            });
+            
+            // Set default "to" unit to something different than "from"
+            if (units[category].length > 1) {
+                toUnitSelect.selectedIndex = 1;
+            }
+        }
+
+        // Perform the conversion
+        function convert() {
+            const category = categorySelect.value;
+            const fromUnitSymbol = fromUnitSelect.value;
+            const toUnitSymbol = toUnitSelect.value;
+            const value = parseFloat(valueInput.value);
+            
+            if (isNaN(value)) {
+                resultInput.value = '';
+                resultContainer.style.display = 'none';
+                return;
+            }
+            
+            // Find the units in our data
+            const fromUnit = units[category].find(u => u.symbol === fromUnitSymbol);
+            const toUnit = units[category].find(u => u.symbol === toUnitSymbol);
+            
+            if (!fromUnit || !toUnit) {
+                resultInput.value = 'Error: Invalid unit';
+                return;
+            }
+            
+            let result;
+            
+            // Special case for temperature
+            if (category === 'temperature') {
+                if (fromUnitSymbol === '°C' && toUnitSymbol === '°F') {
+                    result = (value * 9/5) + 32;
+                } else if (fromUnitSymbol === '°F' && toUnitSymbol === '°C') {
+                    result = (value - 32) * 5/9;
+                } else if (fromUnitSymbol === '°C' && toUnitSymbol === 'K') {
+                    result = value + 273.15;
+                } else if (fromUnitSymbol === 'K' && toUnitSymbol === '°C') {
+                    result = value - 273.15;
+                } else if (fromUnitSymbol === '°F' && toUnitSymbol === 'K') {
+                    result = (value - 32) * 5/9 + 273.15;
+                } else if (fromUnitSymbol === 'K' && toUnitSymbol === '°F') {
+                    result = (value - 273.15) * 9/5 + 32;
+                } else {
+                    // Same unit or invalid combination
+                    result = value;
+                }
+            } else {
+                // Standard conversion for other categories
+                const valueInBase = (value * fromUnit.factor) + (fromUnit.offset || 0);
+                result = (valueInBase - (toUnit.offset || 0)) / toUnit.factor;
+            }
+            
+            // Format the result
+            result = formatNumber(result);
+            resultInput.value = result;
+            
+            // Update the conversion text
+            conversionText.textContent = `${value} ${fromUnitSymbol} = ${result} ${toUnitSymbol}`;
+            resultContainer.style.display = 'block';
+        }
+
+        // Swap the "from" and "to" units
+        function swapUnits() {
+            const temp = fromUnitSelect.value;
+            fromUnitSelect.value = toUnitSelect.value;
+            toUnitSelect.value = temp;
+            convert();
+        }
+
+        // Copy the result to clipboard
+        function copyResult() {
+            resultInput.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }
+
+        // Format a number for display
+        function formatNumber(num) {
+            // If the number is very small or very large, use scientific notation
+            if (Math.abs(num) < 0.0001 || Math.abs(num) > 1000000) {
+                return num.toExponential(6);
+            }
+            
+            // Otherwise, show up to 8 decimal places
+            const str = num.toString();
+            if (str.indexOf('.') === -1) {
+                return str;
+            }
+            
+            // Trim trailing zeros after decimal
+            return parseFloat(num.toFixed(8)).toString();
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initConverter();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
