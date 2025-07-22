@@ -7,6 +7,8 @@
     <meta name="description" content="Professional online unit converter with 250+ units across 12 categories. Fast, accurate, and mobile-friendly for instant daily conversions.">
     <meta name="keywords" content="unit converter, online converter, length converter, weight converter, temperature converter, volume converter">
     <meta name="author" content="Online Unit Converter Pro">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -102,10 +104,10 @@
             right: 0;
             z-index: 50;
             transition: all 0.3s ease;
-            background-color: hsla(var(--background) / 0.95);
+            background-color: hsla(var(--background) / 0.85);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid hsl(var(--border));
-            box-shadow: var(--shadow-md);
         }
 
         .header-content {
@@ -119,6 +121,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            text-decoration: none;
         }
 
         .logo-icon {
@@ -140,35 +143,34 @@
         .logo-title {
             font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: hsl(var(--foreground));
         }
 
         .logo-subtitle {
             font-size: 0.75rem;
             color: hsl(var(--muted-foreground));
+            margin-top: -2px;
         }
 
-        nav {
+        .desktop-nav {
             display: flex;
             gap: 1.5rem;
         }
 
-        nav a {
+        .desktop-nav a {
             text-decoration: none;
             font-weight: 500;
             color: hsl(var(--muted-foreground));
             transition: color 0.2s;
             position: relative;
+            padding: 0.25rem 0;
         }
 
-        nav a:hover {
+        .desktop-nav a:hover {
             color: hsl(var(--primary));
         }
 
-        nav a::after {
+        .desktop-nav a::after {
             content: '';
             position: absolute;
             bottom: -0.25rem;
@@ -179,7 +181,7 @@
             transition: width 0.3s;
         }
 
-        nav a:hover::after {
+        .desktop-nav a:hover::after {
             width: 100%;
         }
 
@@ -189,6 +191,71 @@
             border: none;
             cursor: pointer;
             color: hsl(var(--foreground));
+            padding: 0.5rem;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: hsl(var(--card));
+            z-index: 100;
+            transition: right 0.35s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 6rem 2rem 2rem;
+            box-shadow: var(--shadow-xl);
+            border-left: 1px solid hsl(var(--border));
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .close-menu-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: none;
+            border: none;
+            color: hsl(var(--foreground));
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-link {
+            color: hsl(var(--foreground));
+            text-decoration: none;
+            font-size: 1.25rem;
+            padding: 1rem 0;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .mobile-nav-link:hover {
+            color: hsl(var(--primary));
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: hsla(0, 0%, 0%, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
@@ -742,10 +809,7 @@
         .footer-logo-title {
             font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: hsl(var(--background));
         }
 
         .footer-logo-subtitle {
@@ -868,7 +932,7 @@
                 grid-template-columns: 1fr;
             }
             
-            nav {
+            .desktop-nav {
                 display: none;
             }
             
@@ -880,6 +944,7 @@
                 flex-direction: column;
             }
         }
+
     </style>
 </head>
 <body>
@@ -887,7 +952,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <a href="#" class="logo">
                     <div class="logo-icon">
                         <i data-lucide="calculator"></i>
                     </div>
@@ -895,8 +960,8 @@
                         <div class="logo-title">Online Unit Converter</div>
                         <div class="logo-subtitle">Professional & Accurate</div>
                     </div>
-                </div>
-                <nav>
+                </a>
+                <nav class="desktop-nav">
                     <a href="#converter">Converter</a>
                     <a href="#how-to-use">How to Use</a>
                     <a href="#blog">Blog</a>
@@ -908,6 +973,18 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-nav" class="mobile-nav">
+        <button id="close-menu-btn" class="close-menu-btn">
+            <i data-lucide="x"></i>
+        </button>
+        <a href="#converter" class="mobile-nav-link">Converter</a>
+        <a href="#how-to-use" class="mobile-nav-link">How to Use</a>
+        <a href="#blog" class="mobile-nav-link">Blog</a>
+        <a href="#formulas" class="mobile-nav-link">Formulas</a>
+    </div>
+    <div id="overlay" class="overlay"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1351,7 +1428,7 @@
             
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
-                    <p class="copyright">© 2024 Online Unit Converter. Made by Aayan Sharma. All rights reserved.</p>
+                    <p class="copyright">© 2024 Online Unit Converter. All rights reserved.</p>
                     <p class="footer-meta">250+ units across 12 categories • Mobile optimized • Always free</p>
                     <div class="footer-links-bottom">
                         <a href="#" class="footer-link-bottom">Privacy Policy</a>
@@ -1531,11 +1608,11 @@
             units[category].forEach(unit => {
                 const option1 = document.createElement('option');
                 option1.value = unit.symbol;
-                option1.textContent = `${unit.symbol} - ${unit.name}`;
+                option1.textContent = `${unit.name} (${unit.symbol})`;
                 
                 const option2 = document.createElement('option');
                 option2.value = unit.symbol;
-                option2.textContent = `${unit.symbol} - ${unit.name}`;
+                option2.textContent = `${unit.name} (${unit.symbol})`;
                 
                 fromUnitSelect.appendChild(option1);
                 toUnitSelect.appendChild(option2);
@@ -1573,7 +1650,9 @@
             
             // Special case for temperature
             if (category === 'temperature') {
-                if (fromUnitSymbol === '°C' && toUnitSymbol === '°F') {
+                 if (fromUnitSymbol === toUnitSymbol) {
+                    result = value;
+                } else if (fromUnitSymbol === '°C' && toUnitSymbol === '°F') {
                     result = (value * 9/5) + 32;
                 } else if (fromUnitSymbol === '°F' && toUnitSymbol === '°C') {
                     result = (value - 32) * 5/9;
@@ -1585,22 +1664,19 @@
                     result = (value - 32) * 5/9 + 273.15;
                 } else if (fromUnitSymbol === 'K' && toUnitSymbol === '°F') {
                     result = (value - 273.15) * 9/5 + 32;
-                } else {
-                    // Same unit or invalid combination
-                    result = value;
                 }
             } else {
                 // Standard conversion for other categories
-                const valueInBase = (value * fromUnit.factor) + (fromUnit.offset || 0);
-                result = (valueInBase - (toUnit.offset || 0)) / toUnit.factor;
+                const valueInBase = value * fromUnit.factor;
+                result = valueInBase / toUnit.factor;
             }
             
             // Format the result
-            result = formatNumber(result);
-            resultInput.value = result;
+            const formattedResult = formatNumber(result);
+            resultInput.value = formattedResult;
             
             // Update the conversion text
-            conversionText.textContent = `${value} ${fromUnitSymbol} = ${result} ${toUnitSymbol}`;
+            conversionText.textContent = `${value} ${fromUnitSymbol} = ${formattedResult} ${toUnitSymbol}`;
             resultContainer.style.display = 'block';
         }
 
@@ -1627,29 +1703,25 @@
 
         // Format a number for display
         function formatNumber(num) {
+            if (num === null || num === undefined) return '';
             // If the number is very small or very large, use scientific notation
-            if (Math.abs(num) < 0.0001 || Math.abs(num) > 1000000) {
+            if (Math.abs(num) > 0 && (Math.abs(num) < 0.00001 || Math.abs(num) > 1000000000)) {
                 return num.toExponential(6);
             }
-            
-            // Otherwise, show up to 8 decimal places
-            const str = num.toString();
-            if (str.indexOf('.') === -1) {
-                return str;
-            }
-            
-            // Trim trailing zeros after decimal
-            return parseFloat(num.toFixed(8)).toString();
+            return parseFloat(num.toPrecision(12));
         }
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
@@ -1657,6 +1729,32 @@
         document.addEventListener('DOMContentLoaded', () => {
             initConverter();
             lucide.createIcons();
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            const overlay = document.getElementById('overlay');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function openMenu() {
+                mobileNav.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            mobileMenuBtn.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
         });
     </script>
 </body>
